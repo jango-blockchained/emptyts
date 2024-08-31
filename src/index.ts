@@ -11,22 +11,29 @@ global.Foo = "Bar";
 // * Setup express
 // ***************************************************
 
+// eslint-disable-next-line new-cap
 const app = Express();
 
 // ***************************************************
 // * Add a couple of routes
 // ***************************************************
 
-app.get('/ping', function (req: Express.Request, res: Express.Response) {
-	console.log(`${new Date().toISOString()}: ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+app.get("/ping", function (req: Express.Request, res: Express.Response) {
+
+	console.log(`${new Date().toISOString()}: ${req.protocol}://${req.get("host")}${req.originalUrl}`);
 	// req.UserID is available here because of the modification of the global namespace
 	res.json({ Pong: new Date() });
+
 });
 
-app.get('/attach-to-debugger', function (req: Express.Request, res: Express.Response) {
+app.get("/attach-to-debugger", function (req: Express.Request, res: Express.Response) {
 
 	console.log("The debugger will auto attach here if run with for example `npm run tsc-watch`.");
+	console.log("Just make sure the prompt where you started is configured to enable the debugger.");
+	console.log("Easiest to do that is to start a new 'JavaScript Debug Terminal' in VS Code.");
+
 	debugger; // Use debugger statement or F9 to set breakpoints
+
 	console.log("Step to me by pressing F10");
 	res.json({ DebuggingCompleted: new Date() });
 });
@@ -36,7 +43,7 @@ app.get('/attach-to-debugger', function (req: Express.Request, res: Express.Resp
 // ***************************************************
 
 app.listen(4000, () => {
-	console.log('Listening on port 4000. Try these URL:s');
+	console.log("Listening on port 4000. Try these URL:s");
 	console.log("http://localhost:4000/ping");
 	console.log("http://localhost:4000/attach-to-debugger");
 });
